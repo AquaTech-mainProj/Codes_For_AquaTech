@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:demo1/Screenes/Login.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -12,8 +11,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Your App Name',
       theme: ThemeData(
-        // Define your app's theme here
-      ),
+          // Define your app's theme here
+          ),
       home: SplashScreen(), // Set SplashScreen as the home page
     );
   }
@@ -49,7 +48,8 @@ class LogoTextAnimation extends StatefulWidget {
   _LogoTextAnimationState createState() => _LogoTextAnimationState();
 }
 
-class _LogoTextAnimationState extends State<LogoTextAnimation> with SingleTickerProviderStateMixin {
+class _LogoTextAnimationState extends State<LogoTextAnimation>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _logoAnimation;
   late Animation<Offset> _textAnimation;
@@ -88,7 +88,7 @@ class _LogoTextAnimationState extends State<LogoTextAnimation> with SingleTicker
                 ),
               ),
             ),
-              Center(
+            Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -106,7 +106,8 @@ class _LogoTextAnimationState extends State<LogoTextAnimation> with SingleTicker
                   SlideTransition(
                     position: _textAnimation,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0), // Add left padding
+                      padding:
+                          const EdgeInsets.only(left: 20.0), // Add left padding
                       child: Text(
                         "WELCOME TO AQUATECH",
                         textAlign: TextAlign.center, // Align text center
@@ -114,7 +115,6 @@ class _LogoTextAnimationState extends State<LogoTextAnimation> with SingleTicker
                           fontWeight: FontWeight.bold,
                           fontSize: 55,
                           color: Colors.white,
-                          
                         ),
                       ),
                     ),

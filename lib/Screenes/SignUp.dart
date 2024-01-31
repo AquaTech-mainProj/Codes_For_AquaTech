@@ -13,7 +13,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 0, 0, 0),
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: Text(
           "SignUp to AquaTech",
           textAlign: TextAlign.center,
@@ -26,6 +26,14 @@ class _SignUpPageState extends State<SignUpPage> {
         backgroundColor: Color.fromARGB(255, 0, 0, 0),
         elevation: 0, // Remove app bar shadow
         centerTitle: true,
+      ),*/
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text(
+          'Sign Up',
+          style: TextStyle(color: Colors.white), // Set text color to white
+        ),
+        iconTheme: IconThemeData(color: Colors.white), // Set back button color to white
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
