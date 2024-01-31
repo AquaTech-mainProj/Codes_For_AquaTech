@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'signup.dart'; // Assuming the SignUpPage is in a file named signup.dart
+import 'profile.dart'; // Assuming the ProfilePage is in a file named profile.dart
 
 class SignInPage extends StatelessWidget {
   @override
@@ -87,12 +88,20 @@ class SignInPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
                       gradient: LinearGradient(
-                        colors: [Color.fromARGB(255, 2, 43, 10), Colors.green], // Adjust gradient colors as needed
+                        colors: [
+                          Color.fromARGB(255, 2, 43, 10),
+                          Colors.green
+                        ], // Adjust gradient colors as needed
                       ),
                     ),
                     child: ElevatedButton(
                       onPressed: () {
-                        // Action on Sign In Button press
+                        // Navigate to ProfilePage
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfilePage()),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.transparent, // Make button transparent
@@ -114,7 +123,8 @@ class SignInPage extends StatelessWidget {
           // "Don't have an account? Sign Up" text
           Positioned(
             bottom: 20,
-            left: MediaQuery.of(context).size.width / 2 - 100, // Center horizontally
+            left: MediaQuery.of(context).size.width / 2 -
+                100, // Center horizontally
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
