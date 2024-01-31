@@ -64,6 +64,10 @@ flutter:
     - assets/p1_2.png
     - assets/p3_1.png
     - assets/sign_in.png
+    - assets/gallery1.png
+    - assets/camera.png
+    - assets/user.png
+    - assets/home.png
   
 
   # An image asset can refer to one or more resolution-specific "variants", see

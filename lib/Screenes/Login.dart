@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'signup.dart'; // Assuming the SignUpPage is in a file named signup.dart
-import 'profile.dart'; // Assuming the ProfilePage is in a file named profile.dart
+import 'Home.dart'; // Assuming the ProfilePage is in a file named profile.dart
 
 class SignInPage extends StatelessWidget {
   @override
@@ -100,7 +100,7 @@ class SignInPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProfilePage()),
+                              builder: (context) => HomePage()),
                         );
                       },
                       style: ElevatedButton.styleFrom(

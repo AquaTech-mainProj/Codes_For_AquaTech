@@ -67,7 +67,7 @@ class ProfilePage extends StatelessWidget {
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(height: 8.0),
+                      SizedBox(height: 6.0),
                       CircleAvatar(
                         radius: 40.0,
                         // You can replace the AssetImage with your actual user photo
@@ -147,15 +147,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 8.0),
-                      TextButton(
-                        onPressed: () {
-                          // Handle Rate Our App button tap
-                        },
-                        child: Text(
-                          'Rate Our App',
-                          style: TextStyle(color: Colors.black, fontSize: 16.0),
-                        ),
-                      ),
+                      
                     ],
                   ),
                 ),
