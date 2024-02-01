@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'login.dart'; // Import the Login.dart file
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -8,32 +11,56 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   bool _agreeTerms = false;
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  Future<void> _createAccount(BuildContext context) async {
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+      // Store additional user data in Firestore
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set({
+        'name': _nameController.text.trim(),
+        'email': _emailController.text.trim(),
+        // You can add more user data here
+      });
+
+      // Navigate to the login screen after successful account creation
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                SignInPage()), // Replace LoginScreen with the appropriate screen
+      );
+    } catch (e) {
+      // Handle signup errors
+      print("Error creating account: $e");
+      // Show error message to the user
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Failed to create account. Please try again."),
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 0, 0, 0),
-      /*appBar: AppBar(
-        title: Text(
-          "SignUp to AquaTech",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
-            color: const Color.fromARGB(255, 254, 254, 254), // Set text color to white
-          ),
-        ),
-        backgroundColor: Color.fromARGB(255, 0, 0, 0),
-        elevation: 0, // Remove app bar shadow
-        centerTitle: true,
-      ),*/
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text(
           'Sign Up',
-          style: TextStyle(color: Colors.white), // Set text color to white
+          style: TextStyle(color: Colors.white),
         ),
-        iconTheme: IconThemeData(color: Colors.white), // Set back button color to white
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -45,23 +72,18 @@ class _SignUpPageState extends State<SignUpPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(height: 60),
-                // SignUp with Google Button
                 ElevatedButton.icon(
                   onPressed: () {
                     // Action on SignUp with Google Button press
                   },
                   icon: Image.asset(
-                    'assets/p3_1.png', // Assuming you have a Google logo asset
-                    height: 24, // Adjust icon height as needed
-                    width: 24, // Adjust icon width as needed
+                    'assets/p3_1.png',
+                    height: 24,
+                    width: 24,
                   ),
                   label: Text("SignUp with Google"),
                 ),
-                SizedBox(height: 20), // Spacer between buttons
-                // Continue with Email Button
-               
                 SizedBox(height: 20),
-                // Enter your name TextFormField
                 Container(
                   height: 50,
                   decoration: BoxDecoration(
@@ -72,11 +94,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TextFormField(
+                      controller: _nameController,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         hintText: "Enter your name *",
                         border: InputBorder.none,
-                        hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                        hintStyle:
+                            TextStyle(color: Colors.white.withOpacity(0.5)),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -88,10 +112,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 SizedBox(height: 20),
-                // Enter your username TextFormField
-                
-                SizedBox(height: 20),
-                // Enter your email TextFormField
                 Container(
                   height: 50,
                   decoration: BoxDecoration(
@@ -102,11 +122,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TextFormField(
+                      controller: _emailController,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         hintText: "Enter your email *",
                         border: InputBorder.none,
-                        hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                        hintStyle:
+                            TextStyle(color: Colors.white.withOpacity(0.5)),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -118,7 +140,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 SizedBox(height: 20),
-                // Enter your password TextFormField
                 Container(
                   height: 50,
                   decoration: BoxDecoration(
@@ -129,12 +150,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TextFormField(
+                      controller: _passwordController,
                       obscureText: true,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         hintText: "Enter your password *",
                         border: InputBorder.none,
-                        hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                        hintStyle:
+                            TextStyle(color: Colors.white.withOpacity(0.5)),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -146,7 +169,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 SizedBox(height: 20),
-                // Re-enter your password TextFormField
                 Container(
                   height: 50,
                   decoration: BoxDecoration(
@@ -161,7 +183,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       decoration: InputDecoration(
                         hintText: "Re-enter your password *",
                         border: InputBorder.none,
-                        hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                        hintStyle:
+                            TextStyle(color: Colors.white.withOpacity(0.5)),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -173,7 +196,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 SizedBox(height: 20),
-                // Checkbox for terms of service and privacy policy
                 Row(
                   children: [
                     Checkbox(
@@ -186,16 +208,17 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     Text(
                       "I agree with terms of service and privacy policy",
-                      style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
+                      style: TextStyle(
+                          color: const Color.fromARGB(255, 255, 255, 255)),
                     ),
                   ],
                 ),
                 SizedBox(height: 20),
-                // Create Account Button
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // All fields are valid, continue with account creation
+                      _createAccount(
+                          context); // Create account and redirect to Login page if successful
                     }
                   },
                   child: Text("Create Account"),

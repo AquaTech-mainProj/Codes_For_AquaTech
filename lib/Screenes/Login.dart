@@ -1,8 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'signup.dart'; // Assuming the SignUpPage is in a file named signup.dart
 import 'Home.dart'; // Assuming the ProfilePage is in a file named profile.dart
 
 class SignInPage extends StatelessWidget {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> _signIn(BuildContext context) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+      // Navigate to the Home page after successful sign-in
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+    } catch (e) {
+      // Handle sign-in errors
+      print("Error signing in: $e");
+      // Show error message to the user
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Failed to sign in. Please check your credentials."),
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +76,7 @@ class SignInPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: TextField(
+                      controller: _emailController,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -73,6 +100,7 @@ class SignInPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: TextField(
+                      controller: _passwordController,
                       obscureText: true,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
@@ -96,12 +124,7 @@ class SignInPage extends StatelessWidget {
                     ),
                     child: ElevatedButton(
                       onPressed: () {
-                        // Navigate to ProfilePage
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomePage()),
-                        );
+                        _signIn(context); // Attempt to sign in
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.transparent, // Make button transparent

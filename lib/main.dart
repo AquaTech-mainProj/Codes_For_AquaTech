@@ -1,7 +1,8 @@
+import 'package:demo1/Screenes/Home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:demo1/Screenes/Login.dart';
-
 import 'firebase_options.dart';
 
 void main() async {
@@ -18,8 +19,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Your App Name',
       theme: ThemeData(
-          // Define your app's theme here
-          ),
+        // Define your app's theme here
+      ),
       home: SplashScreen(), // Set SplashScreen as the home page
     );
   }
@@ -34,12 +35,20 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Delay for 5 seconds before navigating to the login page
-    Future.delayed(Duration(seconds: 8), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => SignInPage()),
-      );
+    // Delay for 5 seconds before navigating
+    Future.delayed(Duration(seconds: 5), () {
+      // Check if user is already signed in
+      if (FirebaseAuth.instance.currentUser != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => SignInPage()),
+        );
+      }
     });
   }
 
@@ -48,6 +57,20 @@ class _SplashScreenState extends State<SplashScreen> {
     return LogoTextAnimation(); // Your existing LogoTextAnimation widget
   }
 }
+
+/*class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home Page'),
+      ),
+      body: Center(
+        child: Text('Welcome to your app!'),
+      ),
+    );
+  }
+}*/
 
 // Your existing LogoTextAnimation widget goes here
 class LogoTextAnimation extends StatefulWidget {
@@ -113,8 +136,7 @@ class _LogoTextAnimationState extends State<LogoTextAnimation>
                   SlideTransition(
                     position: _textAnimation,
                     child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20.0), // Add left padding
+                      padding: const EdgeInsets.only(left: 20.0), // Add left padding
                       child: Text(
                         "WELCOME TO AQUATECH",
                         textAlign: TextAlign.center, // Align text center
