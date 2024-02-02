@@ -1,25 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:demo1/Screenes/profile.dart';
 
-
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Your App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomePage(),
-    );
-  }
-}
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -37,7 +18,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black, // Set app bar background color to black
+        /*title: Text(
+          'Your App',
+          style: TextStyle(color: Colors.white), // Set app bar text color to white
+        ),*/
       ),
+      backgroundColor: Colors.black, // Set background color to black
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -46,13 +33,16 @@ class _HomePageState extends State<HomePage> {
             _currentIndex = index;
           });
         },
+        backgroundColor:
+            Colors.black, // Set bottom navigation bar background color to black
+        type: BottomNavigationBarType.fixed, // Set type to fixed to ensure all icons are always visible
         items: [
           BottomNavigationBarItem(
             icon: Image.asset(
               'assets/home.png',
               width: 30,
               height: 30,
-              color: _currentIndex == 0 ?  Color.fromARGB(255, 1, 58, 1): null, // Highlight the icon if on Home page
+              color: _currentIndex == 0 ? Colors.blue : null, // Highlight the icon if on Home page
             ),
             label: '',
           ),
@@ -61,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               'assets/user.png',
               width: 30,
               height: 30,
-              color: _currentIndex == 1 ? Color.fromARGB(255, 1, 58, 1) : null, // Highlight the icon if on Profile page
+              color: _currentIndex == 1 ? Colors.blue : null, // Highlight the icon if on Profile page
             ),
             label: '',
           ),
@@ -83,13 +73,13 @@ class Home extends StatelessWidget {
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Colors.white, // Set text color to white
             ),
           ),
           SizedBox(height: 40),
           _buildButton(
             'Upload from Gallery',
-            'assets/gallery1.png',
+            'assets/gallery.png',
           ),
           SizedBox(height: 20),
           _buildButton(
@@ -106,11 +96,11 @@ class Home extends StatelessWidget {
       width: 200,
       height: 200,
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 51, 78, 48),
+        color: Color.fromARGB(255, 243, 245, 243),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Color.fromARGB(255, 24, 61, 17).withOpacity(0.5),
+            color: Color.fromARGB(255, 156, 160, 155).withOpacity(0.5),
             spreadRadius: 4,
             blurRadius: 5,
             offset: Offset(0, 3),
@@ -131,22 +121,10 @@ class Home extends StatelessWidget {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Color.fromARGB(255, 25, 24, 24), // Set text color to white
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class Login extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Login Page',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
       ),
     );
   }

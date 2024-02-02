@@ -71,7 +71,7 @@ class _SignUpPageState extends State<SignUpPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: 60),
+                /*SizedBox(height: 60),
                 ElevatedButton.icon(
                   onPressed: () {
                     // Action on SignUp with Google Button press
@@ -82,7 +82,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     width: 24,
                   ),
                   label: Text("SignUp with Google"),
-                ),
+                ),*/
                 SizedBox(height: 20),
                 Container(
                   height: 50,

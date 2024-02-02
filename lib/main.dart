@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Your App Name',
       theme: ThemeData(
-        // Define your app's theme here
-      ),
+          // Define your app's theme here
+          ),
       home: SplashScreen(), // Set SplashScreen as the home page
     );
   }
@@ -136,7 +136,8 @@ class _LogoTextAnimationState extends State<LogoTextAnimation>
                   SlideTransition(
                     position: _textAnimation,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0), // Add left padding
+                      padding:
+                          const EdgeInsets.only(left: 20.0), // Add left padding
                       child: Text(
                         "WELCOME TO AQUATECH",
                         textAlign: TextAlign.center, // Align text center

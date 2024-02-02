@@ -19,43 +19,17 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Stack(
         children: [
           // Background image
-          Positioned.fill(
+          /* Positioned.fill(
             child: Image.asset(
               'assets/sign_in.png',
               fit: BoxFit.cover,
             ),
-          ),
-          // Custom app bar
-          Positioned(
-            top: 20,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: 56,
-              color: Colors.transparent,
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  Text(
-                    'My Profile',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          ),*/
+
           // Profile content
           Positioned(
             top: 96,
@@ -65,6 +39,15 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Text(
+                  'My Profile',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 16.0),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -165,7 +148,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       SizedBox(height: 8.0),
-                      
                     ],
                   ),
                 ),
@@ -205,12 +187,13 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   // Function to handle logout
-   void _logout(BuildContext context) async {
+  void _logout(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut(); // Sign out the user
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => SignInPage()), // Redirect to LoginScreen
+        MaterialPageRoute(
+            builder: (context) => SignInPage()), // Redirect to LoginScreen
       );
     } catch (e) {
       print("Error signing out: $e");
@@ -218,5 +201,3 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 }
-     
-
